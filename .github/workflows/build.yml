@@ -31,7 +31,7 @@ jobs:
       run: |
         docker build -f Dockerfile \
           -t registry.digitalocean.com/djngo-k8s/django-k8s-web:latest \
-          -t registry.digitalocean.com/djngo-k8s/django-k8s-web:${GITHUB_SHA::7} \
+          -t registry.digitalocean.com/djngo-k8s/django-k8s-web:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}\
           .
     - name: Push image
       run: |
