@@ -1,0 +1,40 @@
+name: Build Docker Container & Push to DO Registry
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+ 
+jobs:
+  test_django_job :
+    uses: giridharkirthik/django-k8s-project/.github/workflows/test-django.yml@main
+  build:
+    runs-on: ubuntu-latest
+    needs: [test_django_job]
+    env:
+      DJANGO_SECRET_KEY: test-key-not-good-maybe-make-one-better
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO_API_TOKEN_KEY }}
+    - name: Login to DO Conatiner Registry with short-lived creds
+      run: doctl registry login --expiry-seconds 1200
+    - name: Build Container image
+      working-directory: ./dev/django-k8s/web
+      run: |
+        docker build -f Dockerfile \
+          -t registry.digitalocean.com/djngo-k8s/django-k8s-web:latest \
+          -t registry.digitalocean.com/djngo-k8s/django-k8s-web:$
+          {GITHUB_SHA::7} \
+          .
+    - name: Push image
+      run: |
+        docker push registry.digitalocean.com/djngo-k8s/django-k8s-web --all-tags
+        
+    
