@@ -12,5 +12,5 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION="https://django-k8s-space.sgp1.digitaloceanspaces.com"
 DEFAULT_FILE_STORAGE= "django_k8s.cdn.backends.MediaRootS3BotoStorage"
-STATICFILES_STORAGE= 'django_k8s.cdn.backends.StaticRootS3BotoStorage'
+STATICFILES_STORAGE= "django_k8s.cdn.backends.StaticRootS3BotoStorage"
 
