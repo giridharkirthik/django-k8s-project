@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get('DEBUG')) == '1'
+DEBUG = str(os.environ.get('DEBUG')) == "1"
 ENV_ALLOWED_HOST = os.environ.get("ENV_ALLOWED_HOST")
 ALLOWED_HOSTS = []
 if ENV_ALLOWED_HOST:
@@ -88,7 +88,7 @@ DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 DB_DATABASE = os.environ.get("POSTGRES_DB")
 DB_HOST = os.environ.get("POSTGRES_HOST")
 DB_PORT = os.environ.get("POSTGRES_PORT")
-DB_IS_AVAIL = all( [  # to make sure all these are set
+DB_IS_AVAIL = all([  # to make sure all these are set
     DB_USERNAME,
     DB_PASSWORD, # to configure all thses as needed
     DB_DATABASE, 
